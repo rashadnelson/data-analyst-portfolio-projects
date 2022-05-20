@@ -1,21 +1,109 @@
+-- SQL PROJECT:  ARMED FORCES PERSONNEL LABOR PERCENTAGE BY LOCATION
+
+--SELECT THE ENTIRE DATASET
+
+--SELECT * 
+--FROM PortfolioProject..ArmedForcesPersonnelLaborForce$
+--ORDER BY 1, 2, 3
+
+
+--SELECT THE DATASET BY SPECIFIC COLUMNS
+
+--SELECT entity, code, year, percentage_of_labor
+--FROM PortfolioProject..ArmedForcesPersonnelLaborForce$
+--ORDER BY 1, 2, 3
+
+
+-- SELECT ARMED FORCES PERSONNEL WHERE PERCENTAGE OF LABOR FORCE IS 5% OR ABOVE
+
+--SELECT entity, code, year, percentage_of_labor
+--FROM PortfolioProject..ArmedForcesPersonnelLaborForce$
+--WHERE percentage_of_labor >= 5
+--ORDER BY 1, 2, 3
+
+
+-- SEE WHICH COUNTRIES HAVE THE HIGHEST LABOR FORCE RATE AMONG ARMED FORCES PERSONNEL SINCE THE DATA WAS COLLECTED
+
+--SELECT entity, code, year, percentage_of_labor
+--FROM PortfolioProject..ArmedForcesPersonnelLaborForce$
+--ORDER BY percentage_of_labor DESC
+
+
+-- SEE WHICH COUNTRIES HAVE THE LOWEST LABOR FORCE RATE AMONG ARMED FORCES PERSONNEL SINCE THE DATA WAS COLLECTED
+
+--SELECT entity, code, year, percentage_of_labor
+--FROM PortfolioProject..ArmedForcesPersonnelLaborForce$
+--ORDER BY percentage_of_labor ASC
+
+
+-- SEE WHICH COUNTRIES HAVE THE HIGHEST LABOR FORCE RATE FROM 2015 TO 2020
+
+--SELECT entity, code, year, percentage_of_labor
+--FROM PortfolioProject..ArmedForcesPersonnelLaborForce$
+--WHERE year < 2020
+--AND year > 2015
+--ORDER BY percentage_of_labor ASC
+
+
+-- CREATING A TEMP TABLE.  DROP EXISTING TABLE TO MAKE ROOM FOR UPDATES.
+
+--DROP TABLE IF EXISTS #armed_forces_labor_participation
+--CREATE TABLE #armed_forces_labor_participation
+--(
+--location nvarchar(255), 
+--location_code nvarchar(255),
+--year numeric, 
+--labor_percentage numeric, 
+--)
+
+
+-- INSERT DATA INTO NEWLY FORMED TABLE
+
+--INSERT INTO #armed_forces_labor_participation
+--SELECT *
+--FROM PortfolioProject..ArmedForcesPersonnelLaborForce$
+
+
+-- SELECT NEWLY CREATE TABLE
+--SELECT *
+--FROM #armed_forces_labor_participation
+
+
+--CREATING VIEW TO STORE DATA FOR LATER VISUALIZATIONS
+
+--CREATE VIEW armed_forces_labor_participation_view AS
+--SELECT *
+--FROM PortfolioProject..ArmedForcesPersonnelLaborForce$
+
+
+
+
+
+-- SQL PROJECT:  COVID DEATHS AND VACCINATIONS
+
+
+-- PULLING THE ENTIRE DATASET - COVID DEATHS
+
 --SELECT * 
 --FROM PortfolioProject..CovidDeaths$
 --ORDER BY 3, 4
+
+
+-- PULLING THE ENTIRE DATASET - COVID VACCINATIONS
 
 --SELECT * 
 --FROM PortfolioProject..CovidVaccinations$
 --ORDER BY 3, 4
 
 
--- Select the data that we're going to be using
+-- SELECTING THE DATA TO BE USED
 
 --SELECT location, date, total_cases, new_cases, total_deaths, population
 --FROM PortfolioProject..CovidDeaths$
 --ORDER BY 1, 2
 
 
--- Looking at the Total Cases vs Total Deaths
--- Shows likelihood of dying if you contract Covid in your country
+-- TOTAL CASES VS TOTAL DEATHS
 
 --SELECT location, date, total_cases, total_deaths, (total_deaths/total_cases)*100 AS Death_Rate
 --FROM PortfolioProject..CovidDeaths$
@@ -23,8 +111,7 @@
 --ORDER BY 1, 2
 
 
--- Looking at Total Cases vs Population
--- Shows what pcercentage of population got Covid
+-- TOTAL CASES VS. POPULATION
 
 --SELECT location, date, population, total_cases, (total_cases/population)*100 AS Percent_Population_Infected
 --FROM PortfolioProject..CovidDeaths$
@@ -32,7 +119,7 @@
 --ORDER BY 1, 2
 
 
--- Looking at Countries with Highest Infection Rate compared to Population
+-- COUNTRIES WITH HIGHEST INFECTION RATES COMPARED TO POPULATION
 
 --SELECT location, population, MAX(total_cases) AS Highest_Infection_Count, MAX((total_cases/population))*100 AS Percent_Population_Infected
 --FROM PortfolioProject..CovidDeaths$
@@ -41,7 +128,7 @@
 --ORDER BY Percent_Population_Infected DESC
 
 
--- Showing the Countries with the Highest Death Count
+-- COUNTRIES WITH HIGHEST DEATH COUNT
 
 --SELECT location, MAX(CAST(total_deaths AS INT)) AS Total_Death_Count
 --FROM PortfolioProject..CovidDeaths$
@@ -50,7 +137,7 @@
 --ORDER BY Total_Death_Count DESC
 
 
--- Showing the Continents with the Highest Death Count
+-- CONTINENTS WTIH HIGHEST DEATH COUNT
 
 --SELECT continent, MAX(CAST(total_deaths AS INT)) AS Total_Death_Count
 --FROM PortfolioProject..CovidDeaths$
@@ -76,7 +163,6 @@
 --JOIN PortfolioProject..CovidVaccinations$ vac
 --	ON dea.location = vac.location
 --	AND dea.date = vac.date
-
 
 
 -- CREATING A TEMP TABLE.  DROP THE EXISTING TABLE TO MAKE ROOM FOR UPDATES.
@@ -105,7 +191,8 @@
 --ORDER BY 1, 2, 3
 
 
------- SELECT NEWLY CREATE TABLE
+-- SELECT NEWLY CREATE TABLE
+
 --SELECT *
 --FROM #percent_population_vaccinated
 
@@ -120,4 +207,4 @@
 --	AND dea.date = vac.date
 --WHERE dea.continent IS NOT NULL
 --AND vac.new_vaccinations IS NOT NULL
-----ORDER BY 1, 2, 3
+--ORDER BY 1, 2, 3
